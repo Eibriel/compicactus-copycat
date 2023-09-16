@@ -1,6 +1,7 @@
 class_name ChatText
 
 var quips := {}
+var quips_ids: Array[String]
 var current_quip := ""
 var actors: Array[Actor]
 var current_actor: int
@@ -14,6 +15,7 @@ class Quip:
 	var topics: Array[String]
 	var answers: Array[String]
 	var weights: Array[Callable]
+	var weight: int = 0
 
 class Actor:
 	var name: String
@@ -54,33 +56,33 @@ func get_quips_as_array():
 	return quips.keys()
 
 func select_answer(id:String, actor_answering:int):
+	update_quips_ids()
 	current_actor = actor_answering
+	update_weigths()
 	var answer: String
-	var answers: Array = remove_unavailable_quips(quips[id].answers)
-	if answers.size() > 0:
-		answer = answers.pick_random()
-		return answer
-	answers = remove_unavailable_quips(quips_ids())
-	answer = quips.keys().pick_random()
+	for a in quips[id].answers:
+		quips[a].weight += 50
+	quips_ids.sort_custom(sort_quips)
+	answer = quips_ids[0]
 	return answer
 
-func remove_unavailable_quips(quips_to_filter: Array[String]) -> Array[String]:
-	var selected_quips: Array[String] = []
-	for quip in quips_to_filter:
-		if check_filters(quips[quip]):
-			selected_quips.append(quip)
-	return selected_quips
+func update_weigths() -> void:
+	for quip in quips:
+		check_weights(quips[quip])
 
-func check_filters(quip: Quip):
-	var total_weight: int = 0
-	for f in quip.filters:
-		total_weight += f.call(quip, actors[current_actor])
-	return total_weight
+func check_weights(quip: Quip) -> void:
+	quip.weight = 0
+	for f in quip.weights:
+		quip.weight += f.call(quip, actors[current_actor])
 
-func quips_ids() -> Array[String]:
+func sort_quips(a: String, b: String):
+	if quips[a].weight > quips[b].weight:
+		return true
+	return false
+
+func update_quips_ids() -> void:
 	# Hack to convert Dict keys to
 	# an array of strings
-	var r: Array[String] = []
+	quips_ids.resize(0)
 	for k in quips.keys():
-		r.append(k)
-	return r
+		quips_ids.append(k)
