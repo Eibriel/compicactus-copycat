@@ -49,14 +49,34 @@ func generate_text():
 		.weight(filter_compi)
 		.topic("who are you"))
 
+	(dialogue.new("HOW ARE YOU FEELING TODAY")
+		.topic("feelings")
+		.topic("today")
+		.answer("IM FEELING GREAT")
+		.answer("IM NOT SO GREAT")
+		.answer("WHO CARES"))
+
+	(dialogue.new("IM FEELING GREAT")
+		.topic("feelings")
+		.weight(func(quip, actor): return actor.props["feeling good"].sample()*10)
+		.update(func(quip, actor): actor.increase("feeling good")))
+	
+	(dialogue.new("IM NOT SO GREAT")
+		.topic("feelings")
+		.weight(func(quip, actor): return actor.props["feeling good"].sample()*-10)
+		.update(func(quip, actor): actor.props["feeling good"].decrease()))
+	
+	(dialogue.new("WHO CARES")
+		.topic("feelings"))
+
 var filter_human = func(quip, actor) -> int:
 	if actor.name == "human":
 		return 10
-	return 0
+	return -100
 
 var filter_compi = func(quip, actor) -> int:
 	if actor.name == "compi":
 		return 10
-	return 0
+	return -100
 
 
