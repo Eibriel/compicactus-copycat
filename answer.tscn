@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbjkudhnrnups"]
+
+[ext_resource type="Texture2D" uid="uid://dh4vuji6mw5fk" path="res://atlas/human_answer.tres" id="1_l2agh"]
+[ext_resource type="Script" path="res://answer.gd" id="1_rweep"]
+[ext_resource type="Texture2D" uid="uid://cls47rbvxhndm" path="res://atlas/compi_answer.tres" id="2_c5ucm"]
+[ext_resource type="Theme" uid="uid://c51pm8mamwwde" path="res://themes/main_theme.tres" id="3_nnksm"]
+[ext_resource type="Texture2D" uid="uid://fca4gcycuntq" path="res://images/ui_elements.png" id="5_53dlv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uuow0"]
+atlas = ExtResource("5_53dlv")
+region = Rect2(1449, 414, 361, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aj1io"]
+atlas = ExtResource("5_53dlv")
+region = Rect2(1457, 485, 347, 72)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yq1ru"]
+radius = 68.0
+height = 652.0
+
+[node name="Answer" type="Node2D"]
+script = ExtResource("1_rweep")
+
+[node name="HumanAnswer" type="Sprite2D" parent="."]
+texture = ExtResource("1_l2agh")
+
+[node name="CompiAnswer" type="Sprite2D" parent="."]
+texture = ExtResource("2_c5ucm")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -283.0
+offset_top = -47.0
+offset_right = 504.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_nnksm")
+text = "How are you feeling today?"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.5
+offset_top = -115.0
+offset_right = 180.5
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 50.0
+texture_under = SubResource("AtlasTexture_uuow0")
+texture_progress = SubResource("AtlasTexture_aj1io")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_yq1ru")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

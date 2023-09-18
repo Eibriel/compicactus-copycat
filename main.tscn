@@ -1,22 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://fjxvnsqutok1"]
+[gd_scene load_steps=7 format=3 uid="uid://fjxvnsqutok1"]
 
+[ext_resource type="Theme" uid="uid://c51pm8mamwwde" path="res://themes/main_theme.tres" id="1_1e3yc"]
 [ext_resource type="Script" path="res://Main.gd" id="1_hvpue"]
-
-[sub_resource type="Theme" id="Theme_sflyt"]
-Button/font_sizes/font_size = 25
-RichTextLabel/font_sizes/normal_font_size = 25
+[ext_resource type="Texture2D" uid="uid://cxjhmd6w4ia86" path="res://images/background.png" id="2_q7rko"]
+[ext_resource type="Texture2D" uid="uid://cb2m7i0bcw52s" path="res://atlas/play_button.tres" id="3_figii"]
+[ext_resource type="Texture2D" uid="uid://cob4xi0lyhdyn" path="res://atlas/settings_button.tres" id="4_dlcyd"]
+[ext_resource type="Script" path="res://actor_class.gd" id="6_fe1ir"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_sflyt")
+theme = ExtResource("1_1e3yc")
 script = ExtResource("1_hvpue")
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 2
 anchors_preset = 0
 anchor_left = 0.221354
@@ -67,3 +71,59 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Center" type="Node2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="Center"]
+texture = ExtResource("2_q7rko")
+
+[node name="CompiProperties" type="RichTextLabel" parent="Center"]
+offset_left = -1042.0
+offset_top = -833.0
+offset_right = 19.0
+offset_bottom = -259.0
+theme = ExtResource("1_1e3yc")
+text = "Properties"
+
+[node name="HumanProperties" type="RichTextLabel" parent="Center"]
+offset_left = 43.0
+offset_top = -833.0
+offset_right = 1095.0
+offset_bottom = -259.0
+theme = ExtResource("1_1e3yc")
+text = "Properties"
+
+[node name="Bubbles" type="Node2D" parent="Center"]
+
+[node name="HumanAnswers" type="Node2D" parent="Center"]
+position = Vector2(1534, -675)
+
+[node name="CompiAnswers" type="Node2D" parent="Center"]
+position = Vector2(-1534, -675)
+
+[node name="PlayCompiButton" type="TextureButton" parent="Center"]
+offset_left = -1554.0
+offset_top = -976.0
+offset_right = -1419.0
+offset_bottom = -830.0
+texture_normal = ExtResource("3_figii")
+
+[node name="PlayHumanButton" type="TextureButton" parent="Center"]
+offset_left = 1428.0
+offset_top = -976.0
+offset_right = 1563.0
+offset_bottom = -830.0
+texture_normal = ExtResource("3_figii")
+
+[node name="SettingsButton" type="TextureButton" parent="Center"]
+offset_left = -21.0
+offset_top = -985.0
+offset_right = 116.0
+offset_bottom = -839.0
+texture_normal = ExtResource("4_dlcyd")
+
+[node name="ActorCompi" type="Node" parent="."]
+script = ExtResource("6_fe1ir")
+
+[node name="ActorHuman" type="Node" parent="."]
+script = ExtResource("6_fe1ir")

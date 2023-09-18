@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dewqyq8vpay4j"]
+
+[ext_resource type="Script" path="res://bubble.gd" id="1_8e6em"]
+[ext_resource type="Texture2D" uid="uid://dulghxskpc4t" path="res://atlas/compi_bubble.tres" id="1_oa2go"]
+[ext_resource type="Texture2D" uid="uid://d1o1pyopp6xeu" path="res://atlas/human_bubble.tres" id="3_25io3"]
+[ext_resource type="Theme" uid="uid://c51pm8mamwwde" path="res://themes/main_theme.tres" id="4_jjyn0"]
+
+[node name="Bubble" type="Node2D"]
+script = ExtResource("1_8e6em")
+
+[node name="CompiBubble" type="Sprite2D" parent="."]
+texture = ExtResource("1_oa2go")
+
+[node name="HumanBubble" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_25io3")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -266.0
+offset_top = -89.0
+offset_right = 305.0
+offset_bottom = 255.0
+theme = ExtResource("4_jjyn0")
+text = "Quip text goes here
+sdsad
+asdsd
+sadsd"
