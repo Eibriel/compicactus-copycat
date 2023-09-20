@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dme4u5mn0mhta"]
+
+[ext_resource type="Texture2D" uid="uid://fca4gcycuntq" path="res://images/ui_elements.png" id="1_lae82"]
+[ext_resource type="Script" path="res://tts_toggle.gd" id="1_rs5ue"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60vke"]
+atlas = ExtResource("1_lae82")
+region = Rect2(1654, 1254, 218, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2ed1"]
+atlas = ExtResource("1_lae82")
+region = Rect2(1533, 1268, 91, 65)
+
+[node name="TTSToggle" type="Node2D"]
+script = ExtResource("1_rs5ue")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_60vke")
+
+[node name="Toggle" type="Sprite2D" parent="."]
+position = Vector2(49, 0)
+texture = SubResource("AtlasTexture_y2ed1")

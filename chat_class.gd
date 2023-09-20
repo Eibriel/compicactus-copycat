@@ -36,6 +36,8 @@ func _init(actors_: Array[Actor]):
 	actors = actors_
 	actors[ACTOR.HUMAN].name = "human"
 	actors[ACTOR.COMPI].name = "compi"
+	actors[ACTOR.HUMAN].props["I'm human"].value(1)
+	actors[ACTOR.COMPI].props["I'm a cactus"].value(1)
 	current_topics = {
 		"greetings": 3
 	}
@@ -81,8 +83,8 @@ func read_message(id:String, actor_reading:int) -> void:
 
 func only_weights(actor_reading:int) -> void:
 	current_actor = int(actor_reading)
+	update_weigths()
 	if last_quip[actor_reading] != "":
-		update_weigths()
 		set_answers_weight(last_quip[actor_reading])
 
 func invert_actor(actor_id: int):
@@ -101,7 +103,7 @@ func select_answer(actor_answering:int) -> String:
 
 func run_updates(quip_id: String) -> void:
 	for u in quips[quip_id].updates:
-		u.call(quips[quip_id], actors[current_actor])
+		u.call(quips[quip_id], actors[current_actor], actors[invert_actor(current_actor)])
 
 func update_recent(quip_id: String, actor: int) -> void:
 	for q in recent_quips[actor]:

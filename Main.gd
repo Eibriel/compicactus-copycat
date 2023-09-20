@@ -58,17 +58,16 @@ func update_properties_generic(actor:Actor, text: RichTextLabel, actor_id: int):
 #		human_properties.text += "%s: %f\n" % [prop_id, prop.current_value]
 
 func update_weights():
-	#update_weights_generic(compi_answers, ChatText.ACTOR.COMPI)
-	#update_weights_generic(human_answers, ChatText.ACTOR.HUMAN)
-	
-	# add a signal to the brain to update progress bars
-	
-	pass
+	match brain.chat.current_actor:
+		ChatText.ACTOR.COMPI:
+			update_weights_generic(compi_answers, ChatText.ACTOR.COMPI)
+		ChatText.ACTOR.HUMAN:
+			update_weights_generic(human_answers, ChatText.ACTOR.HUMAN)
 
 func update_weights_generic(answers_node, actor_id: int):
 	var min_weight: int = 99999
 	var max_weight: int = -99999
-	brain.chat.only_weights(actor_id)
+	#brain.chat.only_weights(actor_id)
 	for c in answers_node.get_children():
 		if c.has_meta("quip_id"):
 			var w = brain.chat.quips[c.get_meta("quip_id")].weight

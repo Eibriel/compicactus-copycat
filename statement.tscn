@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dalx3uvuci7kx"]
+
+[ext_resource type="Script" path="res://statement.gd" id="1_l1bw5"]
+[ext_resource type="Texture2D" uid="uid://bb7xrbk8msnqq" path="res://atlas/human_bubble_big.tres" id="2_rfern"]
+[ext_resource type="Theme" uid="uid://c51pm8mamwwde" path="res://themes/main_theme.tres" id="4_ha6v5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yq1ru"]
+radius = 215.0
+height = 820.0
+
+[node name="Statement" type="Node2D"]
+script = ExtResource("1_l1bw5")
+
+[node name="HumanStatement" type="Sprite2D" parent="."]
+texture = ExtResource("2_rfern")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -328.0
+offset_top = -161.0
+offset_right = 342.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_ha6v5")
+text = "How are you feeling today?"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_yq1ru")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

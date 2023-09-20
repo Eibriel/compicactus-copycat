@@ -1,11 +1,54 @@
 id,en,es
-HI!,Hi!,Â¡Hey!
-HELLO,Hello,Hola
-HI THERE!,Hi there!,Â¡Buenas!
-WHO ARE YOU?,Who are you?,Â¿QuiÃ©n eres tu?
-IM HUMAN,Iâ€™m a human being,Yo soy un ser humano
-IM COMPI,Iâ€™m Compicactus,Yo soy Compicactus
-HOW ARE YOU FEELING TODAY,How are you feeling today?,Â¿CÃ³mo te sientes hoy?
-IM FEELING GREAT,Iâ€™m feeling great,Me siento genial
-IM NOT SO GREAT,Iâ€™m not so great,No me siento muy bien
-WHO CARES,Who cares?,Â¿A quiÃ©n le importa?
+_help text,Help text,Texto de ayuda
+_text to speech on,Text to speech on,Texto a voz encendido
+_text to speech off,Text to speech off,Texto a voz apagado
+_player,Player,Jugador
+_compi,Compi,Compi
+_human %s,Human %s,Ser humano %s
+_robot %s,Robot %s,Robot %s
+_human and robot,Human and robot,Ser humano y robot
+_%s statements left,%s statements left,%s mensajes restantes
+,,
+_i like to sort,I like to sort,Me gusta ordenar
+_sorting algorithms are boring to humans,Sorting algorithms are boring to humans,Los algoritmos de ordenado son aburridos para los seres humanos
+_i flew a kite once,I flew a kite once,Una vez remonté un barrilete
+_you must be very proud,You must be very proud,Debes de estar muy orgullose
+_i had a coffee this morning,I had a coffee this morning,Tomé un café esta mañana
+"_recharging the batteries, am i right?","Recharging the batteries, am i right?",Recargando las baterías ¿No es cierto?
+_i can feel joy,I can feel joy,Puedo sentir alegría
+_glad you are enjoying the game,Glad you are enjoying the game,Que bueno que estés disfrutando del juego
+_must be the coffee talking,Must be the coffee talking,Debe se el café hablando
+_shawning is contagious,Shawning is contagious,Bostezar es contagioso
+_am i boring you?,Am i boring you?,¿Te estoy aburriendo?
+_keep your human deseases out of me,Keep your human deseases out of me,Mantén tus enfermedades humanas lejos de mi
+_i need to go to the bathroom,I need to go to the bathroom,Tengo que ir al baño
+_that is what a roomba would say,That is what a Roomba would say,Eso es lo que diría una Roomba
+_i need to pee,I need to pee,Necesito hacer pis
+_too much coffee?,Too much coffee?,¿Demasiado café?
+_spare me the details,Spare me the details,Ahorrame los detalles
+_bumping a toe is incredibly painful,Bumping a toe is incredibly painful,Golpearse el dedito del pie es increíblemente doloroso
+_thats one of the reasons i dont have toes,Thats one of the reasons i dont have toes,Esa es una de las razones por las que no tengo dedos de los piés
+_my internet connection just drop,My internet connection just drop,Mi conección de internet acaba de caerse
+_if you were human you would be in dispair,If you were human you would be in dispair,Si fueses un ser humano estarías desesperade
+_error 404 page not found,Error 404 page not found,Error 404 página no encontrada
+"_insert some funny picture, quote or joke","Insert some funny picture, quote or joke","Inserta una imágen divertida, una cita o un chiste"
+_i've fear of viruses,I've fear of viruses,Le tengo miedo a los virus
+"_malware, spyware, ransomware?","Malware, spyware, ransomware?","¿Malware, spyware, ransomware?"
+_im a game developer,Im a game developer,Yo desarrollo videojuegos
+"_poor little thing, get some extra points","Poor little thing, get some extra points",¡Pobre! Toma algunos puntos extra
+_a* algorithms allows for pathfinding,A* algorithms allows for pathfinding,Los algoritmos A* permiten encontrar caminos
+_what are you even talking about?,What are you even talking about?,¿De que rayos estás hablando?
+_i guess thats something game developers just say,I guess thats something game developers just say,Supongo que eso es algo que los desarrolladores de videojuegos suelen decir
+_i like dogs,I like dogs,Me gustan los perros
+_everyone like dogs,Everyone like dogs,A todo el mundo le gustan los perros
+"_weird, you liked cats just a moment ago","Weird, you liked cats just a moment ago","Que extraño, hasta hace un momento te gustaban los gatos"
+_i like cats,I like cats,Me gustan los gatos
+_everyone like cats,Everyone like cats,A todo el mundo le gustan los gatos
+"_you like dogs or you like cats, i cannot compute","You like dogs or you like cats, i cannot compute",O te gustan los perros o te gustan los gatos. No puedo computar.
+"_i do wat i like, i've free will","I do wat i like, i've free will","Hago lo que quiero, tengo libre albedrío"
+_thats every printer on the planet,Thats every printer on the planet,Suena a cada impresora en el planeta
+_what was your first pet's name?,What was your first pet's name?,¿Cual es el nombre de tu primera mascota?
+_nice try hacker,Nice try hacker,Buen intento hacker
+_i like you,I like you,Me gustas
+"_im not that easy, oh looks like i actually are",I’m not that easy. Oh! Looks like i actually am,No soy tan fácil ¡Oh! Parece que si lo soy
+"_you like dogs, cats and cactus?","You like dogs, cats and cactus?","¿Te gustan los perros, los gatos y los cactus?"

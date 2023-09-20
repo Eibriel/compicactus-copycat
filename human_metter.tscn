@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://r68gr6cjklob"]
+
+[ext_resource type="Script" path="res://human_metter.gd" id="1_itbmu"]
+[ext_resource type="Texture2D" uid="uid://fca4gcycuntq" path="res://images/ui_elements.png" id="1_ldb4e"]
+[ext_resource type="Texture2D" uid="uid://dv4l8rwpj2c8n" path="res://atlas/human_metter.tres" id="1_x5wu4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jiir2"]
+atlas = ExtResource("1_ldb4e")
+region = Rect2(1373, 1245, 106, 106)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_itbmu")
+
+[node name="HumanMetter" type="Sprite2D" parent="."]
+position = Vector2(24, -7)
+texture = ExtResource("1_x5wu4")
+
+[node name="MetterIndicator" type="Sprite2D" parent="."]
+position = Vector2(0, 3)
+texture = SubResource("AtlasTexture_jiir2")
