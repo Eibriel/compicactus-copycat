@@ -142,15 +142,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -714.5
-offset_top = -162.0
-offset_right = 714.5
-offset_bottom = 162.0
+offset_left = -1167.0
+offset_top = -684.0
+offset_right = 1345.0
+offset_bottom = 668.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_wkgrd")
 text = "_start text"
-horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="Help" type="Node2D" parent="Center/Popup"]
 
@@ -160,15 +160,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -714.5
-offset_top = -162.0
-offset_right = 714.5
-offset_bottom = 162.0
+offset_left = -1177.0
+offset_top = -716.0
+offset_right = 1339.0
+offset_bottom = 673.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_wkgrd")
 text = "_help text"
-horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="EndScreen" type="Node2D" parent="Center/Popup"]
 

@@ -107,6 +107,8 @@ class Statements:
 			.answers[current_answer].filters.append(filter_)
 		return self
 
+# Today:
+# Are you human or machine?
 
 func _ready():
 	intro.visible = true
@@ -169,6 +171,7 @@ func transition_to_start():
 	var tween := create_tween()
 	tween.tween_property(language_selection, "modulate:a", 0, 1)
 	tween.tween_property(start_menu, "modulate:a", 1, 1)
+	tts_speak(tr("_start text"))
 	
 func start_game_input_set(event):
 	if event.is_action_pressed("select_statement"):
@@ -181,7 +184,7 @@ func start_game_input_set(event):
 		start_game()
 
 func help_input_set(event):
-	if event.is_action_pressed("select_statement"):
+	if event.is_action_pressed("help"):
 		game_state = "game"
 		var tween := create_tween()
 		tween.tween_property(popup, "modulate:a", 0, 1)
@@ -464,4 +467,9 @@ func add_statements():
 		.answer("_you like dogs, cats and cactus?")
 		.filter(func(st): return st.heard.has("_i like dogs") and st.heard.has("_i like cats"))
 		.update(func(st): st.h_or_r += 5)
+		)
+	
+	(stat.new("_we may live in a simulation")
+		.answer("_that's the apotheosis of white people's problem")
+		.update(func(st): st.h_or_r += 2)
 		)
