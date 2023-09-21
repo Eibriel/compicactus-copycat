@@ -5,6 +5,13 @@ extends Control
 @onready var progress_bar = $Center/TextureProgressBar
 @onready var tts_toggle = $Center/TTS_toggle
 @onready var human_metter = $Center/HumanMetter
+@onready var popup = $Center/Popup
+@onready var intro = $Center/Intro
+@onready var language_selection = $Center/Popup/LanguageSelection
+@onready var start_menu = $Center/Popup/StartMenu
+@onready var debug_label = $DebugLabel
+@onready var help = $Center/Popup/Help
+@onready var end_screen = $Center/Popup/EndScreen
 
 var stat_bubble := preload("res://statement.tscn")
 
@@ -15,7 +22,9 @@ var current_stat_count := 0
 var tts_on := true
 var tts_available := true
 var tts_voice_id:Dictionary = {}
+var tts_rate:float = 1.0
 var language := "en"
+var game_state := "intro"
 
 const STAT_SPACE = 450
 const STAT_TOP_MARGIN = 300
@@ -100,11 +109,23 @@ class Statements:
 
 
 func _ready():
-	TranslationServer.set_locale(language)
+	intro.visible = true
+	start_menu.modulate.a = 0.0
+	help.visible = false
+	end_screen.visible = false
 	initialize_tts()
+	var tween := create_tween()
+	tween.tween_interval(1)
+	tween.tween_property(intro, "modulate:a", 0, 1)
+	tween.tween_callback(func ():
+		game_state = "language"
+		)
+
+func start_game():
 	progress_bar.value = 100
 	add_statements()
 	popullate_stats()
+	tts_toggle.update_speed(tts_rate)
 
 func popullate_stats():
 	stat_nodes.resize(0)
@@ -121,6 +142,63 @@ func popullate_stats():
 	update_stat_pos()
 
 func _input(event):
+	match game_state:
+		"game":
+			game_input_set(event)
+		"help":
+			help_input_set(event)
+		"language":
+			language_input_set(event)
+		"start_game":
+			start_game_input_set(event)
+		"end_game":
+			end_game_input_set(event)
+
+func language_input_set(event):
+	if event.is_action_pressed("next_statement"):
+		language = "es"
+		game_state = "start_game"
+		transition_to_start()
+	if event.is_action_pressed("previous_statement"):
+		language = "en"
+		game_state = "start_game"
+		transition_to_start()
+
+func transition_to_start():
+	TranslationServer.set_locale(language)
+	var tween := create_tween()
+	tween.tween_property(language_selection, "modulate:a", 0, 1)
+	tween.tween_property(start_menu, "modulate:a", 1, 1)
+	
+func start_game_input_set(event):
+	if event.is_action_pressed("select_statement"):
+		game_state = "game"
+		var tween := create_tween()
+		tween.tween_property(popup, "modulate:a", 0, 1)
+		tween.tween_callback(func():
+			popup.visible = false
+			start_menu.visible = false)
+		start_game()
+
+func help_input_set(event):
+	if event.is_action_pressed("select_statement"):
+		game_state = "game"
+		var tween := create_tween()
+		tween.tween_property(popup, "modulate:a", 0, 1)
+		tween.tween_callback(func():
+			popup.visible = false
+			help.visible = false)
+
+func end_game_input_set(event):
+	if event.is_action_pressed("select_statement"):
+		game_state = "game"
+		var tween := create_tween()
+		tween.tween_property(popup, "modulate:a", 0, 1)
+		tween.tween_callback(func():
+			popup.visible = false
+			end_screen.visible = false)
+
+func game_input_set(event):
 	if event.is_action_pressed("next_statement"):
 		selected_statement += 1
 		if selected_statement > stat_nodes.size()-1:
@@ -139,7 +217,22 @@ func _input(event):
 		tts_on = !tts_on
 		update_tts_toggle()
 	if event.is_action_pressed("help"):
+		game_state = "help"
 		tts_speak(tr("_help text"))
+		help.visible = true
+		popup.visible = true
+		var tween := create_tween()
+		tween.tween_property(popup, "modulate:a", 1, 1)
+	if event.is_action_pressed("fast_tts"):
+		tts_rate += 0.1
+		tts_rate = min(tts_rate, 10.0)
+		tts_speak(tr("_tts speed increased"), true)
+		tts_toggle.update_speed(tts_rate)
+	if event.is_action_pressed("slow_tts"):
+		tts_rate -= 0.1
+		tts_rate = max(tts_rate, 0.1)
+		tts_speak(tr("_tts speed decreased"), true)
+		tts_toggle.update_speed(tts_rate)
 
 func update_tts_toggle():
 	if tts_on:
@@ -153,7 +246,7 @@ func update_stat_pos():
 	var tween := create_tween()
 	var pos = get_stat_pos()
 	tween.tween_property(human_answers, "position:y",pos, 0.1)
-	tts_speak(tr("_player")+" "+stat.get_stat_by_pos(selected_statement), true)
+	tts_speak(tr("_player")+" "+tr(stat.get_stat_by_pos(selected_statement)), true)
 	#human_answers.position.y = 200 + (selected_statement*STAT_SPACE)
 
 func shake_stat_pos():
@@ -173,7 +266,7 @@ func compute_answer():
 	var msg = stat.get_answer(stat.get_stat_by_pos(selected_statement))
 	if msg == "": return
 	compi_answer_label.text = msg
-	tts_speak(tr("_compi")+" "+msg)
+	tts_speak(tr("_compi")+" " + msg)
 	current_stat_count += 1
 	progress_bar.value = 100-(100 / MAX_STAT_COUNT)*current_stat_count
 	var diff_h_or_r = stat.get_h_or_r() - prev_h_or_r
@@ -189,6 +282,12 @@ func compute_answer():
 
 func check_end_state():
 	if current_stat_count < MAX_STAT_COUNT: return
+	game_state = "end_game"
+	end_screen.visible = true
+	popup.visible = true
+	var tween := create_tween()
+	tween.tween_property(popup, "modulate:a", 1, 1)
+	
 	stat.reset()
 	progress_bar.value = 100
 	current_stat_count = 0
@@ -204,26 +303,32 @@ func update_metter():
 func initialize_tts():
 	for l in LANGUAGES:
 		var voices = DisplayServer.tts_get_voices_for_language(l)
+		debug_label.add_text("\nLanguage: %s" % l)
+		for v in voices:
+			debug_label.add_text("\nVoice: %s" % v)
+		debug_label.add_text("\n")
 		if voices.size() == 0: continue
 		tts_voice_id[l] = voices[0]
 	
-	if !tts_voice_id.has("en"):
-		tts_available = true
-		tts_on = false
-		update_tts_toggle()
+	# This is not needed
+	# Browsers return empty voice list
+#	if !tts_voice_id.has("en"):
+#		tts_available = true
+#		tts_on = false
+#		update_tts_toggle()
 
 func tts_speak(text:String, interrupt:=false, force:=false):
 	if !tts_on and !force: return
 	if !tts_available: return
 	var volume := 50
 	var pitch := 1.0
-	var rate := 1.0
+	#var rate := 1.0
 	var utterance_id:=0
 	DisplayServer.tts_speak(text,
 		tts_voice_id[language],
 		volume,
 		pitch,
-		rate,
+		tts_rate,
 		utterance_id,
 		interrupt
 	)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://r68gr6cjklob"]
+[gd_scene load_steps=6 format=3 uid="uid://r68gr6cjklob"]
 
 [ext_resource type="Script" path="res://human_metter.gd" id="1_itbmu"]
 [ext_resource type="Texture2D" uid="uid://fca4gcycuntq" path="res://images/ui_elements.png" id="1_ldb4e"]
 [ext_resource type="Texture2D" uid="uid://dv4l8rwpj2c8n" path="res://atlas/human_metter.tres" id="1_x5wu4"]
+[ext_resource type="Theme" uid="uid://c51pm8mamwwde" path="res://themes/main_theme.tres" id="4_40nxw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jiir2"]
 atlas = ExtResource("1_ldb4e")
@@ -18,3 +19,22 @@ texture = ExtResource("1_x5wu4")
 [node name="MetterIndicator" type="Sprite2D" parent="."]
 position = Vector2(0, 3)
 texture = SubResource("AtlasTexture_jiir2")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 659.0
+offset_top = -61.0
+offset_right = 907.0
+offset_bottom = 47.0
+theme = ExtResource("4_40nxw")
+text = "_human"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -872.0
+offset_top = -58.0
+offset_right = -657.0
+offset_bottom = 50.0
+theme = ExtResource("4_40nxw")
+text = "_robot"
+horizontal_alignment = 2
+vertical_alignment = 1

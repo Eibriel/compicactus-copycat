@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dme4u5mn0mhta"]
+[gd_scene load_steps=6 format=3 uid="uid://dme4u5mn0mhta"]
 
 [ext_resource type="Texture2D" uid="uid://fca4gcycuntq" path="res://images/ui_elements.png" id="1_lae82"]
 [ext_resource type="Script" path="res://tts_toggle.gd" id="1_rs5ue"]
+[ext_resource type="Theme" uid="uid://c51pm8mamwwde" path="res://themes/main_theme.tres" id="3_f7yku"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60vke"]
 atlas = ExtResource("1_lae82")
@@ -20,3 +21,56 @@ texture = SubResource("AtlasTexture_60vke")
 [node name="Toggle" type="Sprite2D" parent="."]
 position = Vector2(49, 0)
 texture = SubResource("AtlasTexture_y2ed1")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -261.0
+offset_top = 58.0
+offset_right = 261.0
+offset_bottom = 166.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_f7yku")
+text = "_text to speech"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelSpeed" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -253.0
+offset_top = -145.0
+offset_right = 269.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_f7yku")
+text = "_speed %f"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 149.0
+offset_top = -57.0
+offset_right = 656.0
+offset_bottom = 51.0
+theme = ExtResource("3_f7yku")
+text = "_on"
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+offset_left = -527.0
+offset_top = -53.0
+offset_right = -138.0
+offset_bottom = 55.0
+theme = ExtResource("3_f7yku")
+text = "_off"
+horizontal_alignment = 2
+vertical_alignment = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8ox33xsueinb"]
+[gd_scene load_steps=13 format=3 uid="uid://c8ox33xsueinb"]
 
 [ext_resource type="Script" path="res://main_b.gd" id="1_ehr3d"]
 [ext_resource type="Texture2D" uid="uid://cxjhmd6w4ia86" path="res://images/background.png" id="1_s1rdp"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://ce52hsypp12t2" path="res://atlas/compi_bubble_big.tres" id="4_op237"]
 [ext_resource type="Theme" uid="uid://c51pm8mamwwde" path="res://themes/main_theme.tres" id="5_wkgrd"]
 [ext_resource type="Texture2D" uid="uid://fca4gcycuntq" path="res://images/ui_elements.png" id="6_f0w2s"]
+[ext_resource type="Texture2D" uid="uid://l1a3njdutc3h" path="res://images/popup_background.png" id="9_i62dx"]
+[ext_resource type="Texture2D" uid="uid://dyp0aeym6sq40" path="res://images/LogoHoriontal.png" id="10_hq28h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_goume"]
 atlas = ExtResource("6_f0w2s")
@@ -34,7 +36,7 @@ script = ExtResource("1_ehr3d")
 texture = ExtResource("1_s1rdp")
 
 [node name="HumanMetter" parent="Center" instance=ExtResource("3_goxrm")]
-position = Vector2(0, -934)
+position = Vector2(-596, -934)
 
 [node name="TTS_toggle" parent="Center" instance=ExtResource("4_313ya")]
 position = Vector2(1304, -930)
@@ -77,7 +79,7 @@ offset_bottom = -81.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_wkgrd")
-text = "How are you feeling today?"
+text = "..."
 vertical_alignment = 1
 autowrap_mode = 3
 
@@ -96,3 +98,117 @@ grow_vertical = 2
 value = 50.0
 texture_under = SubResource("AtlasTexture_goume")
 texture_progress = SubResource("AtlasTexture_2qsix")
+
+[node name="Popup" type="Node2D" parent="Center"]
+
+[node name="ColorRect" type="ColorRect" parent="Center/Popup"]
+modulate = Color(0.74902, 0.694118, 0.87451, 0.792157)
+offset_left = -2047.0
+offset_top = -1207.0
+offset_right = 2059.0
+offset_bottom = 1182.0
+metadata/_edit_use_anchors_ = true
+
+[node name="PopupBackground" type="Sprite2D" parent="Center/Popup"]
+texture = ExtResource("9_i62dx")
+
+[node name="LanguageSelection" type="Node2D" parent="Center/Popup"]
+
+[node name="Language" type="Label" parent="Center/Popup/LanguageSelection"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -714.5
+offset_top = -162.0
+offset_right = 714.5
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+auto_translate = false
+localize_numeral_system = false
+theme = ExtResource("5_wkgrd")
+text = "Press W or Up to select English
+
+Presiona S o Abajo para seleccionar Español"
+horizontal_alignment = 1
+
+[node name="StartMenu" type="Node2D" parent="Center/Popup"]
+
+[node name="StartText" type="Label" parent="Center/Popup/StartMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -714.5
+offset_top = -162.0
+offset_right = 714.5
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_wkgrd")
+text = "_start text"
+horizontal_alignment = 1
+
+[node name="Help" type="Node2D" parent="Center/Popup"]
+
+[node name="HelpText" type="Label" parent="Center/Popup/Help"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -714.5
+offset_top = -162.0
+offset_right = 714.5
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_wkgrd")
+text = "_help text"
+horizontal_alignment = 1
+
+[node name="EndScreen" type="Node2D" parent="Center/Popup"]
+
+[node name="EndText" type="Label" parent="Center/Popup/EndScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -714.5
+offset_top = -162.0
+offset_right = 714.5
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_wkgrd")
+text = "_end text"
+horizontal_alignment = 1
+
+[node name="Intro" type="Node2D" parent="Center"]
+visible = false
+
+[node name="ColorRect2" type="ColorRect" parent="Center/Intro"]
+offset_left = -2047.0
+offset_top = -1207.0
+offset_right = 2059.0
+offset_bottom = 1182.0
+metadata/_edit_use_anchors_ = true
+
+[node name="LogoHoriontal" type="Sprite2D" parent="Center/Intro"]
+position = Vector2(-1, -156)
+texture = ExtResource("10_hq28h")
+
+[node name="DebugLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 824.0
+offset_top = -716.0
+offset_right = 1799.0
+offset_bottom = 530.0
+auto_translate = false
+localize_numeral_system = false
+theme = ExtResource("5_wkgrd")
+text = "Debug:"
