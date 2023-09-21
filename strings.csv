@@ -1,6 +1,8 @@
 id,en,es
 _start text,In this game you talk to an AI that is trying to figure out if your are human or a machine.\nYour task is to make it believe you are one or another. \n\nWhich one is up to you!\n\nPress Enter or B to continue.,"En este juego tu debes hablar con una Inteligencia Artificial, la cual intentará adivinar si tu eres un ser humano o una máquina.\nTu meta es hacerle creer que eres uno u otro.\n\n¡Tu eliges cual de los dos!\n\nPresiona Enter o B para continuar."
 _help text,Are you human or machine?\n\nControls:\nPress S or Down to select the next statement.\nPress W or Up to select the previous statement.\nPress Enter or B to say that statement to the bot.\n\nPress T or Left Shoulder to toggle Text to Speech.\nPress A or Left to decrease Text to Speech speed.\nPress D or right to increase Text to Speech speed.\n\nPress H or Start to open or close this help.,¿Eres un ser humano o una máquina?\n\nControles:\nPresiona S o Abajo para seleccionar el próximo mensaje.\nPresiona W o Arriba para seleccionar el mensaje anterior.\nPresiona Enter o B para enviar el mensaje al bot.\n\nPresiona T o Left Shoulder para activar y desactivar Texto a Voz.\nPresiona A o Izquierda para reducir la velocidad del Texto a Voz.\nPresiona D o Derecha para incrementar la velocidad del Texto a Voz.\n\nPresiona H o Start para abir o cerrar ésta ayuda.
+_end text,Press Enter or B to play again.,Presiona Enter o B para jugar de nuevo.
+_eibriel presents,Eibriel presents,Eibriel presenta
 _speed %f,Speed: %.1f,Velocidad: %.3f
 _off,Off,Apagado
 _on,On,Encendido

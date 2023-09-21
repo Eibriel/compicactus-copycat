@@ -12,6 +12,8 @@ extends Control
 @onready var debug_label = $DebugLabel
 @onready var help = $Center/Popup/Help
 @onready var end_screen = $Center/Popup/EndScreen
+@onready var compicactus = $Control/SubViewportContainer/SubViewport/Compicactus
+@onready var sub_viewport_container = $Control/SubViewportContainer
 
 var stat_bubble := preload("res://statement.tscn")
 
@@ -41,6 +43,7 @@ class Statements:
 	var current_answer:String
 	var as_array: Array[String]
 	var is_disabled: Array[String]
+	var current_animation:String = ""
 	
 	func reset():
 		state = {
@@ -55,6 +58,7 @@ class Statements:
 	func get_answer(statement_: String):
 		if is_disabled.has(statement_):
 			return ""
+		current_animation = ""
 		is_disabled.append(statement_)
 		var possible_answers := {}
 		for aid in statements[statement_].answers:
@@ -72,6 +76,7 @@ class Statements:
 				selected_answer = pa
 		#var selected_answer: String = statements[statement_].answers.keys()[0]
 		statements[statement_].answers[selected_answer].update.call(state)
+		current_animation = statements[statement_].answers[selected_answer].animation
 		state.heard.append(statement_)
 		return tr(selected_answer)
 	
@@ -92,9 +97,15 @@ class Statements:
 		statements[current_statement].answers[answer_] = {
 			"text": answer_,
 			"filters": [],
-			"update": null
+			"update": null,
+			"animation": ""
 		}
 		current_answer = answer_
+		return self
+	
+	func animation(animation_:String):
+		statements[current_statement] \
+			.answers[current_answer].animation = animation_
 		return self
 	
 	func update(update_:Callable):
@@ -112,15 +123,24 @@ class Statements:
 
 func _ready():
 	intro.visible = true
+	popup.visible = true
+	compicactus.visible = false
+	compicactus.play("LooksDown")
 	start_menu.modulate.a = 0.0
 	help.visible = false
 	end_screen.visible = false
+	sub_viewport_container.position = Vector2(-940,-520)
 	initialize_tts()
+	#tts_speak("_eibriel presents")
 	var tween := create_tween()
 	tween.tween_interval(1)
 	tween.tween_property(intro, "modulate:a", 0, 1)
 	tween.tween_callback(func ():
 		game_state = "language"
+		sub_viewport_container.position = Vector2(-1196,-708)
+		compicactus.stop_anim()
+		compicactus.play("LooksDown")
+		compicactus.call_deferred("set_visible", true)
 		)
 
 func start_game():
@@ -155,6 +175,8 @@ func _input(event):
 			start_game_input_set(event)
 		"end_game":
 			end_game_input_set(event)
+		"play_again":
+			play_again_input_set(event)
 
 func language_input_set(event):
 	if event.is_action_pressed("next_statement"):
@@ -167,6 +189,8 @@ func language_input_set(event):
 		transition_to_start()
 
 func transition_to_start():
+	sub_viewport_container.position = Vector2(-526,-361)
+	compicactus.play("LooksUp")
 	TranslationServer.set_locale(language)
 	var tween := create_tween()
 	tween.tween_property(language_selection, "modulate:a", 0, 1)
@@ -180,13 +204,18 @@ func start_game_input_set(event):
 		tween.tween_property(popup, "modulate:a", 0, 1)
 		tween.tween_callback(func():
 			popup.visible = false
-			start_menu.visible = false)
+			start_menu.visible = false
+			sub_viewport_container.position = Vector2(20,-508)
+			compicactus.play("Shows", true)
+			#compicactus.play("Idle")
+			)
 		start_game()
 
 func help_input_set(event):
 	if event.is_action_pressed("help"):
 		game_state = "game"
 		var tween := create_tween()
+		tts_speak(tr("_end text"))
 		tween.tween_property(popup, "modulate:a", 0, 1)
 		tween.tween_callback(func():
 			popup.visible = false
@@ -194,7 +223,12 @@ func help_input_set(event):
 
 func end_game_input_set(event):
 	if event.is_action_pressed("select_statement"):
+		play_again_popup()
+
+func play_again_input_set(event):
+	if event.is_action_pressed("select_statement"):
 		game_state = "game"
+		reset_game()
 		var tween := create_tween()
 		tween.tween_property(popup, "modulate:a", 0, 1)
 		tween.tween_callback(func():
@@ -268,17 +302,22 @@ func compute_answer():
 	var prev_h_or_r = stat.get_h_or_r()
 	var msg = stat.get_answer(stat.get_stat_by_pos(selected_statement))
 	if msg == "": return
+	compicactus.play(stat.current_animation, true)
 	compi_answer_label.text = msg
+	compi_answer_label.visible_ratio = 0.0
+	var tween = create_tween()
+	tween.tween_property(compi_answer_label, "visible_ratio", 1.0, 1.0)
 	tts_speak(tr("_compi")+" " + msg)
 	current_stat_count += 1
 	progress_bar.value = 100-(100 / MAX_STAT_COUNT)*current_stat_count
 	var diff_h_or_r = stat.get_h_or_r() - prev_h_or_r
-	if stat.get_h_or_r() > 0:
-		tts_speak(tr("_human %s") % stat.get_h_or_r())
-	elif stat.get_h_or_r() < 0:
-		tts_speak(tr("_robot %s") % stat.get_h_or_r())
-	else:
-		tts_speak(tr("_human and robot"))
+	if false:
+		if stat.get_h_or_r() > 0:
+			tts_speak(tr("_human %s") % stat.get_h_or_r())
+		elif stat.get_h_or_r() < 0:
+			tts_speak(tr("_robot %s") % stat.get_h_or_r())
+		else:
+			tts_speak(tr("_human and robot"))
 	tts_speak(tr("_%s statements left") % (MAX_STAT_COUNT - current_stat_count))
 	update_metter()
 	check_end_state()
@@ -286,15 +325,21 @@ func compute_answer():
 func check_end_state():
 	if current_stat_count < MAX_STAT_COUNT: return
 	game_state = "end_game"
+	compicactus.play("HumanOrMachine")
+
+func play_again_popup():
+	game_state = "play_again"
 	end_screen.visible = true
 	popup.visible = true
 	var tween := create_tween()
 	tween.tween_property(popup, "modulate:a", 1, 1)
-	
+
+func reset_game():
 	stat.reset()
 	progress_bar.value = 100
 	current_stat_count = 0
 	selected_statement = 0
+	compi_answer_label.text = "..."
 	update_metter()
 	update_stat_pos()
 	for n in stat_nodes:
@@ -354,82 +399,99 @@ func add_statements():
 	(stat.new("_i like to sort")
 		.answer("_sorting algorithms are boring to humans")
 		.update(func(st): st.h_or_r -= 2)
+		.animation("Disbelief")
 		)
 	
 	(stat.new("_i flew a kite once")
 		.answer("_you must be very proud")
 		.update(func(st): st.h_or_r += 2)
+		.animation("Exited")
 		)
 	
 	(stat.new("_i had a coffee this morning")
 		.answer("_recharging the batteries, am i right?")
 		.update(func(st): st.h_or_r += 1)
+		.animation("Exited")
 		)
 	
 	(stat.new("_i can feel joy")
 		.answer("_glad you are enjoying the game")
 		.update(func(st): st.h_or_r += 3)
+		.animation("Wink")
 		
 		.answer("_must be the coffee talking")
 		.filter(func(st): return st.heard.has("_i had a coffee this morning"))
 		.update(func(st): st.h_or_r += 3)
+		.animation("Exited")
 		)
 	
 	(stat.new("_shawning is contagious")
 		.answer("_am i boring you?")
 		.update(func(st): st.h_or_r += 1)
+		.animation("Disbelief")
 		
 		.answer("_keep your human deseases out of me")
 		.filter(func(st): return st.h_or_r > 10)
 		.update(func(st): st.h_or_r += 3)
+		.animation("No")
 		)
 	
 	(stat.new("_i need to go to the bathroom")
 		.answer("_that is what a roomba would say")
 		.update(func(st): st.h_or_r -= 1)
+		.animation("Disbelief")
 		)
 	
 	(stat.new("_i need to pee")
 		.answer("_too much coffee?")
 		.filter(func(st): return st.heard.has("_i had a coffee this morning"))
 		.update(func(st): st.h_or_r += 3)
+		.animation("Exited")
 		
 		.answer("_spare me the details")
 		.update(func(st): st.h_or_r += 1)
+		.animation("No")
 		)
 		
 	(stat.new("_bumping a toe is incredibly painful")
 		.answer("_thats one of the reasons i dont have toes")
 		.update(func(st): st.h_or_r += 1)
+		.animation("Wink")
 		)
 	
 	(stat.new("_my internet connection just drop")
 		.answer("_if you were human you would be in dispair")
 		.update(func(st): st.h_or_r -= 2)
+		.animation("Disbelief")
 		)
 	
 	(stat.new("_error 404 page not found")
 		.answer("_insert some funny picture, quote or joke")
 		.update(func(st): st.h_or_r -= 3)
+		.animation("Wink")
 		)
 	
 	(stat.new("_i've fear of viruses")
 		.answer("_malware, spyware, ransomware?")
 		.update(func(st): st.h_or_r -= 3)
+		.animation("Wink")
 		)
 	
 	(stat.new("_im a game developer")
 		.answer("_poor little thing, get some extra points")
 		.update(func(st): st.h_or_r += 4)
+		.animation("Disbelief")
 		)
 	
 	(stat.new("_a* algorithms allows for pathfinding")
 		.answer("_what are you even talking about?")
 		.update(func(st): st.h_or_r -= 2)
+		.animation("Disbelief")
 		
 		.answer("_i guess thats something game developers just say")
 		.filter(func(st): return st.heard.has("_im a game developer"))
 		.update(func(st): st.h_or_r += 3)
+		.animation("Exited")
 		)
 	
 	(stat.new("_i like dogs")
@@ -439,6 +501,7 @@ func add_statements():
 		.answer("_weird, you liked cats just a moment ago")
 		.filter(func(st): return st.heard.has("_i like cats"))
 		.update(func(st): st.h_or_r -= 1)
+		.animation("Disbelief")
 		)
 	
 	(stat.new("_i like cats")
@@ -448,6 +511,7 @@ func add_statements():
 		.answer("_you like dogs or you like cats, i cannot compute")
 		.filter(func(st): return st.heard.has("_i like dogs"))
 		.update(func(st): st.h_or_r -= 1)
+		.animation("Disbelief")
 		)
 	
 	(stat.new("_i do wat i like, i've free will")
@@ -458,18 +522,22 @@ func add_statements():
 	(stat.new("_what was your first pet's name?")
 		.answer("_nice try hacker")
 		.update(func(st): st.h_or_r -= 2)
+		.animation("No")
 		)
 	
 	(stat.new("_i like you")
 		.answer("_im not that easy, oh looks like i actually are")
 		.update(func(st): st.h_or_r += 1)
+		.animation("Exited")
 		
 		.answer("_you like dogs, cats and cactus?")
 		.filter(func(st): return st.heard.has("_i like dogs") and st.heard.has("_i like cats"))
 		.update(func(st): st.h_or_r += 5)
+		.animation("No")
 		)
 	
 	(stat.new("_we may live in a simulation")
 		.answer("_that's the apotheosis of white people's problem")
 		.update(func(st): st.h_or_r += 2)
+		.animation("Disbelief")
 		)

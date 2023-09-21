@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c8ox33xsueinb"]
+[gd_scene load_steps=14 format=3 uid="uid://c8ox33xsueinb"]
 
 [ext_resource type="Script" path="res://main_b.gd" id="1_ehr3d"]
 [ext_resource type="Texture2D" uid="uid://cxjhmd6w4ia86" path="res://images/background.png" id="1_s1rdp"]
@@ -10,14 +10,15 @@
 [ext_resource type="Texture2D" uid="uid://fca4gcycuntq" path="res://images/ui_elements.png" id="6_f0w2s"]
 [ext_resource type="Texture2D" uid="uid://l1a3njdutc3h" path="res://images/popup_background.png" id="9_i62dx"]
 [ext_resource type="Texture2D" uid="uid://dyp0aeym6sq40" path="res://images/LogoHoriontal.png" id="10_hq28h"]
+[ext_resource type="PackedScene" uid="uid://w2nkb2eujyt6" path="res://compicactus.tscn" id="11_fnf4y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_goume"]
 atlas = ExtResource("6_f0w2s")
-region = Rect2(1449, 414, 361, 70)
+region = Rect2(19, 435, 991, 153)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2qsix"]
 atlas = ExtResource("6_f0w2s")
-region = Rect2(1457, 485, 347, 72)
+region = Rect2(1046, 437, 990, 149)
 
 [node name="MainB" type="Control"]
 layout_mode = 3
@@ -36,6 +37,7 @@ script = ExtResource("1_ehr3d")
 texture = ExtResource("1_s1rdp")
 
 [node name="HumanMetter" parent="Center" instance=ExtResource("3_goxrm")]
+visible = false
 position = Vector2(-596, -934)
 
 [node name="TTS_toggle" parent="Center" instance=ExtResource("4_313ya")]
@@ -45,10 +47,10 @@ position = Vector2(1304, -930)
 clip_contents = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -1788.0
-offset_top = -647.0
-offset_right = -708.0
-offset_bottom = 927.0
+offset_left = -1828.0
+offset_top = -974.0
+offset_right = -748.0
+offset_bottom = 926.0
 metadata/_edit_use_anchors_ = true
 
 [node name="HumanAnswers" type="Node2D" parent="Center/Control"]
@@ -56,31 +58,32 @@ unique_name_in_owner = true
 position = Vector2(518, 0)
 
 [node name="PlayButton" type="Sprite2D" parent="Center"]
-position = Vector2(-1688, -363)
+position = Vector2(-1828, -681)
 texture = ExtResource("2_12q13")
 
 [node name="CompiAnswers" type="Node2D" parent="Center"]
+position = Vector2(0, 246)
 
 [node name="CompiBubble" type="Sprite2D" parent="Center/CompiAnswers"]
 position = Vector2(4, -311)
+scale = Vector2(1, 1.5)
 texture = ExtResource("4_op237")
 
-[node name="CompiAnswerLabel" type="Label" parent="Center/CompiAnswers/CompiBubble"]
+[node name="CompiAnswerLabel" type="Label" parent="Center/CompiAnswers"]
 unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -913.5
-offset_top = -449.5
-offset_right = -123.5
-offset_bottom = -81.5
+offset_left = -405.0
+offset_top = -597.0
+offset_right = 385.0
+offset_bottom = -43.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_wkgrd")
 text = "..."
-vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Center"]
@@ -89,10 +92,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -1436.0
-offset_top = -752.0
-offset_right = -1075.0
-offset_bottom = -682.0
+offset_left = -509.0
+offset_top = -970.0
+offset_right = 482.0
+offset_bottom = -817.0
 grow_horizontal = 2
 grow_vertical = 2
 value = 50.0
@@ -100,6 +103,7 @@ texture_under = SubResource("AtlasTexture_goume")
 texture_progress = SubResource("AtlasTexture_2qsix")
 
 [node name="Popup" type="Node2D" parent="Center"]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Center/Popup"]
 modulate = Color(0.74902, 0.694118, 0.87451, 0.792157)
@@ -202,7 +206,44 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(-1, -156)
 texture = ExtResource("10_hq28h")
 
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -528.0
+offset_right = 1920.0
+offset_bottom = 552.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Control/SubViewportContainer"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Compicactus" parent="Control/SubViewportContainer/SubViewport" instance=ExtResource("11_fnf4y")]
+
 [node name="DebugLabel" type="RichTextLabel" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 824.0
 offset_top = -716.0
