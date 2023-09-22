@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8ox33xsueinb"]
+[gd_scene load_steps=28 format=3 uid="uid://c8ox33xsueinb"]
 
 [ext_resource type="Script" path="res://main_b.gd" id="1_ehr3d"]
 [ext_resource type="Texture2D" uid="uid://cxjhmd6w4ia86" path="res://images/background.png" id="1_s1rdp"]
@@ -6,12 +6,20 @@
 [ext_resource type="PackedScene" uid="uid://r68gr6cjklob" path="res://human_metter.tscn" id="3_goxrm"]
 [ext_resource type="PackedScene" uid="uid://dme4u5mn0mhta" path="res://tts_toggle.tscn" id="4_313ya"]
 [ext_resource type="Texture2D" uid="uid://ce52hsypp12t2" path="res://atlas/compi_bubble_big.tres" id="4_op237"]
+[ext_resource type="Texture2D" uid="uid://cymxdpe1sl1jl" path="res://atlas/gamepad_left.tres" id="5_ursjj"]
 [ext_resource type="Theme" uid="uid://c51pm8mamwwde" path="res://themes/main_theme.tres" id="5_wkgrd"]
+[ext_resource type="Texture2D" uid="uid://de1t2drakpqe1" path="res://atlas/gamepad_right_shoulder.tres" id="6_8jg21"]
 [ext_resource type="Texture2D" uid="uid://fca4gcycuntq" path="res://images/ui_elements.png" id="6_f0w2s"]
+[ext_resource type="PackedScene" uid="uid://dp4gq0jgwmsef" path="res://keyboard_icon.tscn" id="6_gsyyl"]
+[ext_resource type="Texture2D" uid="uid://y4wwdtbmtews" path="res://atlas/gamepad_right.tres" id="6_p226k"]
 [ext_resource type="Texture2D" uid="uid://l1a3njdutc3h" path="res://images/popup_background.png" id="9_i62dx"]
+[ext_resource type="Texture2D" uid="uid://t41kviual44u" path="res://atlas/gamepad_left_shoulder.tres" id="9_rladj"]
 [ext_resource type="Texture2D" uid="uid://dyp0aeym6sq40" path="res://images/LogoHoriontal.png" id="10_hq28h"]
+[ext_resource type="Texture2D" uid="uid://cipjdeg35h0fn" path="res://atlas/gamepad_up.tres" id="10_xiw6x"]
 [ext_resource type="PackedScene" uid="uid://w2nkb2eujyt6" path="res://compicactus.tscn" id="11_fnf4y"]
+[ext_resource type="Texture2D" uid="uid://b08ufeyh05iks" path="res://atlas/gamepad_down.tres" id="11_o7blr"]
 [ext_resource type="AudioStream" uid="uid://jxgxynd1bveo" path="res://music/DavidKBD - Tropical Pack - 03 - Heartbeats - Bossanova.ogg" id="12_i7ff0"]
+[ext_resource type="Texture2D" uid="uid://df3augwqaiukm" path="res://atlas/gamepad_start.tres" id="17_lwbct"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_08gm8"]
 atlas = ExtResource("6_f0w2s")
@@ -28,6 +36,18 @@ region = Rect2(19, 435, 991, 153)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2qsix"]
 atlas = ExtResource("6_f0w2s")
 region = Rect2(1046, 437, 990, 149)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjq4b"]
+atlas = ExtResource("6_f0w2s")
+region = Rect2(95, 1422, 359, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0opld"]
+atlas = ExtResource("6_f0w2s")
+region = Rect2(478, 1408, 402, 148)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87wsd"]
+atlas = ExtResource("6_f0w2s")
+region = Rect2(1622, 1447, 106, 102)
 
 [node name="MainB" type="Control"]
 layout_mode = 3
@@ -74,8 +94,82 @@ value = 50.0
 texture_under = SubResource("AtlasTexture_goume")
 texture_progress = SubResource("AtlasTexture_2qsix")
 
-[node name="TTS_toggle" parent="Center" instance=ExtResource("4_313ya")]
-position = Vector2(480, 740)
+[node name="Options" type="Node2D" parent="Center"]
+
+[node name="TTS_slow_gamepad_icon" type="Sprite2D" parent="Center/Options"]
+position = Vector2(-515.5, 637)
+texture = ExtResource("5_ursjj")
+
+[node name="TTS_slow_keyboard_icon" parent="Center/Options" instance=ExtResource("6_gsyyl")]
+position = Vector2(-384, 641)
+
+[node name="TTS_fast_gamepad_icon" type="Sprite2D" parent="Center/Options"]
+position = Vector2(-523.5, 760)
+texture = ExtResource("6_p226k")
+
+[node name="TTS_slow_keyboard_icon2" parent="Center/Options" instance=ExtResource("6_gsyyl")]
+position = Vector2(-376, 764)
+character = "D"
+
+[node name="TTS_toggle" parent="Center/Options" instance=ExtResource("4_313ya")]
+position = Vector2(83, 738)
+
+[node name="TTS_toggle_gamepad_icon" type="Sprite2D" parent="Center/Options"]
+position = Vector2(-528.5, 875)
+texture = ExtResource("9_rladj")
+
+[node name="TTS_slow_keyboard_icon3" parent="Center/Options" instance=ExtResource("6_gsyyl")]
+position = Vector2(-376.5, 884)
+character = "T"
+
+[node name="VolumeBar" type="TextureProgressBar" parent="Center/Options"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 602.0
+offset_top = 577.0
+offset_right = 961.0
+offset_bottom = 730.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 35.0
+texture_under = SubResource("AtlasTexture_qjq4b")
+texture_progress = SubResource("AtlasTexture_0opld")
+
+[node name="VolumeLabel" type="Label" parent="Center/Options"]
+offset_left = 661.0
+offset_top = 724.0
+offset_right = 935.0
+offset_bottom = 832.0
+theme = ExtResource("5_wkgrd")
+text = "_volume"
+
+[node name="volume_gamepad_icon" type="Sprite2D" parent="Center/Options"]
+position = Vector2(732.5, 896)
+texture = ExtResource("6_8jg21")
+
+[node name="TTS_slow_keyboard_icon4" parent="Center/Options" instance=ExtResource("6_gsyyl")]
+position = Vector2(892.5, 910)
+character = "V"
+
+[node name="HelpLabel" type="Label" parent="Center/Options"]
+offset_left = 1127.0
+offset_top = 597.0
+offset_right = 1490.0
+offset_bottom = 813.0
+theme = ExtResource("5_wkgrd")
+text = "_help"
+horizontal_alignment = 1
+
+[node name="TTS_fast_gamepad_icon6" type="Sprite2D" parent="Center/Options"]
+position = Vector2(1228, 825.5)
+texture = ExtResource("17_lwbct")
+
+[node name="TTS_slow_keyboard_icon5" parent="Center/Options" instance=ExtResource("6_gsyyl")]
+position = Vector2(1388, 828.5)
+character = "H"
 
 [node name="Control" type="Control" parent="Center"]
 clip_contents = true
@@ -84,12 +178,32 @@ anchors_preset = 0
 offset_left = -1828.0
 offset_top = -974.0
 offset_right = -748.0
-offset_bottom = 926.0
+offset_bottom = 976.0
 metadata/_edit_use_anchors_ = true
 
 [node name="HumanAnswers" type="Node2D" parent="Center/Control"]
 unique_name_in_owner = true
 position = Vector2(518, 0)
+
+[node name="previous_gamepad_icon" type="Sprite2D" parent="Center"]
+position = Vector2(-1479, -990)
+texture = ExtResource("10_xiw6x")
+
+[node name="TTS_slow_keyboard_icon6" parent="Center" instance=ExtResource("6_gsyyl")]
+position = Vector2(-1316, -995)
+character = "W"
+
+[node name="next_gamepad_icon" type="Sprite2D" parent="Center"]
+position = Vector2(-1479, 1000)
+texture = ExtResource("11_o7blr")
+
+[node name="TTS_slow_keyboard_icon7" parent="Center" instance=ExtResource("6_gsyyl")]
+position = Vector2(-1316, -995)
+character = "W"
+
+[node name="TTS_slow_keyboard_icon8" parent="Center" instance=ExtResource("6_gsyyl")]
+position = Vector2(-1333, 1004)
+character = "S"
 
 [node name="PlayButton" type="Sprite2D" parent="Center"]
 position = Vector2(-1828, -681)
@@ -158,9 +272,27 @@ S o Abajo para seleccionar Español
 --
 
 T or Left Shoulder to Toggle Text to Speech
+T o Left Shoulder para apagar y encender Texto a Voz
 
-T o Left Shoulder para apagar y encender Texto a Voz"
+V or Right Shoulder to change audio volume
+V o Right Shoulder para cambiar el volumen del audio"
 horizontal_alignment = 1
+
+[node name="TTS_fast_gamepad_icon2" type="Sprite2D" parent="Center/Popup/LanguageSelection"]
+position = Vector2(514.5, -563)
+texture = ExtResource("10_xiw6x")
+
+[node name="TTS_slow_keyboard_icon9" parent="Center/Popup/LanguageSelection" instance=ExtResource("6_gsyyl")]
+position = Vector2(674.5, -555)
+character = "W"
+
+[node name="TTS_slow_keyboard_icon10" parent="Center/Popup/LanguageSelection" instance=ExtResource("6_gsyyl")]
+position = Vector2(816, -334)
+character = "S"
+
+[node name="TTS_fast_gamepad_icon3" type="Sprite2D" parent="Center/Popup/LanguageSelection"]
+position = Vector2(664, -337)
+texture = ExtResource("11_o7blr")
 
 [node name="StartMenu" type="Node2D" parent="Center/Popup"]
 
@@ -180,6 +312,14 @@ theme = ExtResource("5_wkgrd")
 text = "_start text"
 autowrap_mode = 3
 
+[node name="TTS_slow_keyboard_icon11" parent="Center/Popup/StartMenu" instance=ExtResource("6_gsyyl")]
+position = Vector2(-56, 534)
+character = "Enter"
+
+[node name="TTS_fast_gamepad_icon4" type="Sprite2D" parent="Center/Popup/StartMenu"]
+position = Vector2(-208, 531)
+texture = SubResource("AtlasTexture_87wsd")
+
 [node name="Help" type="Node2D" parent="Center/Popup"]
 
 [node name="HelpText" type="Label" parent="Center/Popup/Help"]
@@ -197,6 +337,14 @@ grow_vertical = 2
 theme = ExtResource("5_wkgrd")
 text = "_help text"
 autowrap_mode = 3
+
+[node name="TTS_slow_keyboard_icon12" parent="Center/Popup/Help" instance=ExtResource("6_gsyyl")]
+position = Vector2(995, 525)
+character = "H"
+
+[node name="TTS_fast_gamepad_icon5" type="Sprite2D" parent="Center/Popup/Help"]
+position = Vector2(843, 522)
+texture = ExtResource("17_lwbct")
 
 [node name="EndScreen" type="Node2D" parent="Center/Popup"]
 

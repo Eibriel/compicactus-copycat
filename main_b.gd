@@ -8,7 +8,7 @@ extends Control
 @onready var human_answers = %HumanAnswers
 @onready var compi_answer_label = %CompiAnswerLabel
 @onready var progress_bar = $Center/TextureProgressBar
-@onready var tts_toggle = $Center/TTS_toggle
+@onready var tts_toggle = $Center/Options/TTS_toggle
 @onready var human_metter = $Center/HumanMetter
 @onready var popup = $Center/Popup
 @onready var intro = $Center/Intro
@@ -24,6 +24,8 @@ extends Control
 @onready var result_text = $Center/Popup/EndScreen/ResultText
 @onready var audio_stream_player = $AudioStreamPlayer
 @onready var ui_player = $UIPlayer
+@onready var volume_bar = $Center/Options/VolumeBar
+
 
 var stat_bubble := preload("res://statement.tscn")
 var statement_list := preload("res://statement_list.gd")
@@ -44,6 +46,8 @@ var tts_voice_id:Dictionary = {}
 var tts_rate:float = 1.0
 var language := "en"
 var game_state := "intro"
+var volume := 0
+
 const STAT_SPACE = 450
 const STAT_TOP_MARGIN = 300
 const MAX_STAT_COUNT = 5
@@ -58,6 +62,7 @@ const SOUNDS = {
 }
 
 func _ready():
+	set_volume()
 	intro.visible = true
 	popup.visible = true
 	compicactus.visible = false
@@ -77,6 +82,8 @@ func _ready():
 		compicactus.stop_anim()
 		tts_speak("Press W or Up to select English")
 		tts_speak("Presiona S o Abajo para seleccionar Español")
+		tts_speak("Press V or Right Shoulder to change audio volume")
+		tts_speak("Presiona V o Right Shoulder para cambiar el volumen del audio")
 		compicactus.play("LooksDown")
 		compicactus.call_deferred("set_visible", true)
 		)
@@ -110,7 +117,7 @@ func transition_to_start():
 	var tween := create_tween()
 	tween.tween_property(language_selection, "modulate:a", 0, 1)
 	tween.tween_property(start_menu, "modulate:a", 1, 1)
-	tts_speak(tr("_start text"))
+	tts_speak(tr("_start text"), true)
 
 func toggle_tts():
 	tts_on = !tts_on
@@ -134,6 +141,38 @@ func slow_tts():
 	tts_speak(tr("_tts speed decreased"), true)
 	tts_toggle.update_speed(tts_rate)
 
+func set_volume():
+	play_sound(SOUNDS.Confirm)
+	volume += 1
+	if volume > 4:
+		volume = 0
+	AudioServer.set_bus_mute(0, false)
+	AudioServer.set_bus_volume_db(0, 0.0)
+	match volume:
+		0:
+			AudioServer.set_bus_mute(0, true)
+			volume_bar.value = 0
+		1:
+			AudioServer.set_bus_volume_db(0, -12.0)
+			volume_bar.value = 25+10
+		2:
+			AudioServer.set_bus_volume_db(0, -6.0)
+			volume_bar.value = 50
+		3:
+			AudioServer.set_bus_volume_db(0, -3.0)
+			volume_bar.value = 75-10
+		4:
+			AudioServer.set_bus_volume_db(0, 0.0)
+			volume_bar.value = 100
+	
+func open_help():
+	game_state = "help"
+	play_sound(SOUNDS.Confirm)
+	tts_speak(tr("_help text"))
+	help.visible = true
+	popup.visible = true
+	var tween := create_tween()
+	tween.tween_property(popup, "modulate:a", 1, 1)
 
 
 
@@ -179,6 +218,14 @@ func _input(event):
 			end_game_input_set(event)
 		"play_again":
 			play_again_input_set(event)
+	if event.is_action_pressed("volume"):
+		set_volume()
+	if event.is_action_pressed("toggle_tts"):
+		toggle_tts()
+	if event.is_action_pressed("fast_tts"):
+		fast_tts()
+	if event.is_action_pressed("slow_tts"):
+		slow_tts()
 
 func language_input_set(event):
 	if event.is_action_pressed("next_statement"):
@@ -191,8 +238,6 @@ func language_input_set(event):
 		game_state = "start_game"
 		play_sound(SOUNDS.Confirm)
 		transition_to_start()
-	if event.is_action_pressed("toggle_tts"):
-		toggle_tts()
 	
 func start_game_input_set(event):
 	if event.is_action_pressed("select_statement"):
@@ -200,6 +245,7 @@ func start_game_input_set(event):
 		play_sound(SOUNDS.Confirm)
 		audio_stream_player.stream = music[1]
 		audio_stream_player.play()
+		tts_speak(tr("_press h to open help"), true)
 		var tween := create_tween()
 		tween.tween_property(popup, "modulate:a", 0, 1)
 		tween.tween_callback(func():
@@ -207,15 +253,8 @@ func start_game_input_set(event):
 			start_menu.visible = false
 			sub_viewport_container.position = Vector2(20,-508)
 			compicactus.play("Shows", true)
-			#compicactus.play("Idle")
 			)
 		start_game()
-	if event.is_action_pressed("toggle_tts"):
-		toggle_tts()
-	if event.is_action_pressed("fast_tts"):
-		fast_tts()
-	if event.is_action_pressed("slow_tts"):
-		slow_tts()
 
 func help_input_set(event):
 	if event.is_action_pressed("help"):
@@ -226,12 +265,6 @@ func help_input_set(event):
 		tween.tween_callback(func():
 			popup.visible = false
 			help.visible = false)
-	if event.is_action_pressed("toggle_tts"):
-		toggle_tts()
-	if event.is_action_pressed("fast_tts"):
-		fast_tts()
-	if event.is_action_pressed("slow_tts"):
-		slow_tts()
 
 func end_game_input_set(event):
 	if event.is_action_pressed("select_statement"):
@@ -261,6 +294,8 @@ func game_input_set(event):
 			play_sound(SOUNDS.Error)
 		else:
 			play_sound(SOUNDS.Next)
+		#tts_speak(tr("_player")+" "+tr(stat.get_stat_by_pos(selected_statement)), true)
+		tts_speak(tr(stat.get_stat_by_pos(selected_statement)), true)
 		update_stat_pos()
 	if event.is_action_pressed("previous_statement"):
 		selected_statement -= 1
@@ -270,23 +305,13 @@ func game_input_set(event):
 			play_sound(SOUNDS.Error)
 		else:
 			play_sound(SOUNDS.Previous)
+		#tts_speak(tr("_player")+" "+tr(stat.get_stat_by_pos(selected_statement)), true)
+		tts_speak(tr(stat.get_stat_by_pos(selected_statement)), true)
 		update_stat_pos()
 	if event.is_action_pressed("select_statement"):
 		compute_answer()
-	if event.is_action_pressed("toggle_tts"):
-		toggle_tts()
-	if event.is_action_pressed("fast_tts"):
-		fast_tts()
-	if event.is_action_pressed("slow_tts"):
-		slow_tts()
 	if event.is_action_pressed("help"):
-		game_state = "help"
-		play_sound(SOUNDS.Confirm)
-		tts_speak(tr("_help text"))
-		help.visible = true
-		popup.visible = true
-		var tween := create_tween()
-		tween.tween_property(popup, "modulate:a", 1, 1)
+		open_help()
 
 
 
@@ -304,9 +329,6 @@ func update_stat_pos():
 	var tween := create_tween()
 	var pos = get_stat_pos()
 	tween.tween_property(human_answers, "position:y",pos, 0.1)
-	#tts_speak(tr("_player")+" "+tr(stat.get_stat_by_pos(selected_statement)), true)
-	tts_speak(tr(stat.get_stat_by_pos(selected_statement)), true)
-	#human_answers.position.y = 200 + (selected_statement*STAT_SPACE)
 
 func shake_stat_pos():
 	var tween := create_tween()

@@ -1,6 +1,7 @@
 id,en,es
 _start text,In this game you talk to an AI that is trying to figure out if your are human or a machine.\nYour task is to make it believe you are one or another. \n\nWhich one is up to you!\n\nPress Enter or A to continue.,"En este juego tu debes hablar con una Inteligencia Artificial, la cual intentará adivinar si tu eres un ser humano o una máquina.\nTu meta es hacerle creer que eres uno u otro.\n\n¡Tu eliges cual de los dos!\n\nPresiona Enter o A para continuar."
-_help text,Are you human or machine?\n\nControls:\nPress S or Down to select the next statement.\nPress W or Up to select the previous statement.\nPress Enter or A to say that statement to the bot.\n\nPress T or Left Shoulder to toggle Text to Speech.\nPress A or Left to decrease Text to Speech speed.\nPress D or right to increase Text to Speech speed.\n\nPress H or Start to open or close this help.,¿Eres un ser humano o una máquina?\n\nControles:\nPresiona S o Abajo para seleccionar el próximo mensaje.\nPresiona W o Arriba para seleccionar el mensaje anterior.\nPresiona Enter o A para enviar el mensaje al bot.\n\nPresiona T o Left Shoulder para activar y desactivar Texto a Voz.\nPresiona A o Izquierda para reducir la velocidad del Texto a Voz.\nPresiona D o Derecha para incrementar la velocidad del Texto a Voz.\n\nPresiona H o Start para abir o cerrar ésta ayuda.
+_help text,Help\n\nControls:\nPress H or Start to open or close this help.\nS or Down to select the next statement.\nW or Up to select the previous statement.\nEnter or A to say that statement to the bot.\n\nT or Left Shoulder to toggle Text to Speech.\nA or Left to decrease Text to Speech speed.\nD or right to increase Text to Speech speed.\nV or Right Shoulder to change audio volume,Ayuda\n\nControles:\nPresiona H o Start para abir o cerrar ésta ayuda.\nS o Abajo para seleccionar el próximo mensaje.\nW o Arriba para seleccionar el mensaje anterior.\nEnter o A para enviar el mensaje al bot.\n\nT o Left Shoulder para activar y desactivar Texto a Voz.\nA o Izquierda para reducir la velocidad del Texto a Voz.\nD o Derecha para incrementar la velocidad del Texto a Voz.\nV o Right Shoulder para cambiar el volumen del audio
+_press h to open help,Press H or Start to open or close the help window,Presiona H o Start para abrir o cerrar la ventana de ayuda
 _end text,Press Enter or A to play again.,Presiona Enter o A para jugar de nuevo.
 _end human,I think you are a human being!,¡Yo creo que tu eres un ser humano!
 _end machine,I think you are a machine!,¡Yo creo que eres una máquina!
@@ -16,6 +17,8 @@ _tts speed increased,Text to speech speed increased,Velocidad de texto a voz inc
 _tts speed decreased,Text to speech speed decreased,Velocidad de texto a voz disminuída
 _text to speech on,Text to speech on,Texto a voz encendido
 _text to speech off,Text to speech off,Texto a voz apagado
+_help,Help,Ayuda
+_volume,Volume,Volume
 _player,Player,Jugador
 _compi,Compi says,Compi dice
 _human,Human,Ser humano
@@ -27,7 +30,7 @@ _%s statements left,%s statements left,%s mensajes restantes
 _i like to sort,I like to sort,Me gusta ordenar
 _sorting algorithms are boring to humans,Sorting algorithms are boring to humans,Los algoritmos de ordenado son aburridos para los seres humanos
 _i flew a kite once,I flew a kite once,Una vez remonté un barrilete
-_that is a solid first step to become an astronaut,,
+_that is a solid first step to become an astronaut,That is a solid first step to become an astronaut,Ese es un sólido primer paso para convertirte en astronauta
 _you must be very proud,You must be very proud,Debes de estar muy orgullose
 _i had a coffee this morning,I had a coffee this morning,Tomé un café esta mañana
 "_recharging the batteries, am i right?","Recharging the batteries, am i right?",Recargando las baterías ¿No es cierto?
@@ -45,7 +48,7 @@ _spare me the details,Spare me the details,Ahorrame los detalles
 _bumping a toe is incredibly painful,Bumping a toe is incredibly painful,Golpearse el dedito del pie es increíblemente doloroso
 _thats one of the reasons i dont have toes,Thats one of the reasons i dont have toes,Esa es una de las razones por las que no tengo dedos de los piés
 _my internet connection just drop,My internet connection just drop,Mi conección de internet acaba de caerse
-_funny that you need internet more than me,,
+_funny that you need internet more than me,Funny that you need internet more than me,Es loco el hecho the que tu necesitas Internet más que yo
 _error 404 page not found,Error 404 page not found,Error 404 página no encontrada
 "_insert some funny picture, quote or joke","Insert some funny picture, quote or joke","Inserta una imágen divertida, una cita o un chiste"
 _i've fear of viruses,I've fear of viruses,Le tengo miedo a los virus
@@ -70,26 +73,30 @@ _i like you,I like you,Me gustas
 "_you like dogs, cats and cactus?","You like dogs, cats and cactus?","¿Te gustan los perros, los gatos y los cactus?"
 _we may live in a simulation,We may live in a simulation,Nosotros podríamos vivir en una simulación
 _that's the apotheosis of white people's problem,Tha’s the apotheosis of white people problem,Esa es la apoteosis de los problemas de primer mundo
-"_pain is in your mind, is all a simulation",,
-_i want to be an astronaut,,
-_i can relate to that,,
-_i've a headache,,
-"_rest your eyes, i can wait here forever",,
-_you should drink more water,,
-_you should drink less water,,
-_my favorite number is 100110,,
-"_im confused, your favorite number is 1 or 0?",,
-_my name is Eliza,,
-_that's quite interesting,,
-_then you definitively are living in a simulation,,
-_my favorite color is #ff00d4,,
-_i can tell that you are team Barbie,,
-_my role model is Ada Lovelace,,
-_my role model is the difference engine,,
-_she must be very proud that you found a bug on this game,,
-"_she was the first game developer, i was told",,
-_i found a bug on this game,,
-_it worked fine when i tried it,,
-_dont you come gamedeveloping on me,,
-_what are you?,,
-_is not obvious? im an ai cactus,,
+"_pain is in your mind, is all a simulation","Pain is in your mind, it’s all a simulation","El dolor está en tu mente, todo es una simulación"
+_i want to be an astronaut,I want to be an astronaut,Quiero ser astronauta
+_i can relate to that,I can relate to that,Te comprendo
+_i've a headache,I’ve a headache,Me duele la cabeza
+"_rest your eyes, i can wait here forever","Rest your eyes, I can wait here forever","Descanza tus ojos, puedo esperar aquí por siempre"
+_you should drink more water,You should drink more water,Deberías beber mas agua
+_you should drink less water,You should drink less water,Deberías beber menos agua
+_my favorite number is 100110,My favorite number is 100110,Mi numero favorito es 100110
+"_im confused, your favorite number is 1 or 0?","I’m confused, your favorite number is 1 or 0?",Estoy confundide ¿Tu número favorito es 1 o 0?
+_my name is Eliza,My name is Eliza,Mi nombre es Eliza
+_that's quite interesting,"That’s quite interesting, Eliza","Eso es muy interesante, Eliza"
+_then you definitively are living in a simulation,Then you definitively are living in a simulation,Entonces tu definitivamente estás viviendo en una simulación
+_my favorite color is #ff00d4,My favorite color is #ff00d4,Mi color favorito es #ff00d4
+_i can tell that you are team Barbie,I can tess that you are team Barbie,Puedo ver que eres del equipo Barbie
+_my role model is Ada Lovelace,My role model is Ada Lovelace,Mi modelo de rol es Ada Lovelace
+_my role model is the difference engine,My role model is the Difference Engine,Mi modelo de rol es la Máquina Diferencial
+_she must be very proud that you found a bug on this game,Se must be very proud that you found a bug on this game,Debe estar muy orgullosa de que encontraste un bug en este juego
+"_she was the first game developer, i was told","She was the first game developer, I was told","Ella fue la primera desarrolladora de videojuegos, según me dijeron"
+_i found a bug on this game,I found a bug on this game,Encontré un bug en este juego
+_it worked fine when i tried it,It worked fine when I tried it,Funcionaba bien cuando lo probé
+_dont you come gamedeveloping on me,Don’t you come gamedeveloping on me,No vengas a hacerte el desarrollador de videojuegos conmigo
+_what are you?,What are you?,¿Qué eres tu?
+_is not obvious? im an ai cactus,It’s not obvious? I’m an AI cactus,¿No es obvio? Soy un cactus AI
+_what should i do,What should I do?,¿Qué debería hacer?
+_tell me that you are human without telling me that you are human,Tell me that you are human without telling me that you are human,Dime que eres un ser humano sin decirme que eres un ser humano
+_tell me that you are a machine without telling me that you are a machine,Tell me that you are a machine without telling me that you are a machine,Dime que eres una máquina sin decirme que eres una máquina
+_i drink water,I drink water,Yo bebo agua
