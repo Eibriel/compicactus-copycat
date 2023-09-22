@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://jxgxynd1bveo"
+path="res://.godot/imported/DavidKBD - Tropical Pack - 03 - Heartbeats - Bossanova.ogg-a40a99eb3ab46ebe62ab0983f08ed227.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/DavidKBD - Tropical Pack - 03 - Heartbeats - Bossanova.ogg"
+dest_files=["res://.godot/imported/DavidKBD - Tropical Pack - 03 - Heartbeats - Bossanova.ogg-a40a99eb3ab46ebe62ab0983f08ed227.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

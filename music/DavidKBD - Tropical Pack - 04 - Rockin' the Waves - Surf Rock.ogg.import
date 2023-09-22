@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bjaxeevb380vc"
+path="res://.godot/imported/DavidKBD - Tropical Pack - 04 - Rockin' the Waves - Surf Rock.ogg-d7f78fdb9374b92f3ff38c02b64d8ede.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/DavidKBD - Tropical Pack - 04 - Rockin' the Waves - Surf Rock.ogg"
+dest_files=["res://.godot/imported/DavidKBD - Tropical Pack - 04 - Rockin' the Waves - Surf Rock.ogg-d7f78fdb9374b92f3ff38c02b64d8ede.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

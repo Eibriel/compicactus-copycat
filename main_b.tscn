@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8ox33xsueinb"]
+[gd_scene load_steps=17 format=3 uid="uid://c8ox33xsueinb"]
 
 [ext_resource type="Script" path="res://main_b.gd" id="1_ehr3d"]
 [ext_resource type="Texture2D" uid="uid://cxjhmd6w4ia86" path="res://images/background.png" id="1_s1rdp"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://l1a3njdutc3h" path="res://images/popup_background.png" id="9_i62dx"]
 [ext_resource type="Texture2D" uid="uid://dyp0aeym6sq40" path="res://images/LogoHoriontal.png" id="10_hq28h"]
 [ext_resource type="PackedScene" uid="uid://w2nkb2eujyt6" path="res://compicactus.tscn" id="11_fnf4y"]
+[ext_resource type="AudioStream" uid="uid://jxgxynd1bveo" path="res://music/DavidKBD - Tropical Pack - 03 - Heartbeats - Bossanova.ogg" id="12_i7ff0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_08gm8"]
 atlas = ExtResource("6_f0w2s")
@@ -150,9 +151,15 @@ grow_vertical = 2
 auto_translate = false
 localize_numeral_system = false
 theme = ExtResource("5_wkgrd")
-text = "Press W or Up to select English
+text = "W or Up to select English
 
-Presiona S o Abajo para seleccionar Español"
+S o Abajo para seleccionar Español
+
+--
+
+T or Left Shoulder to Toggle Text to Speech
+
+T o Left Shoulder para apagar y encender Texto a Voz"
 horizontal_alignment = 1
 
 [node name="StartMenu" type="Node2D" parent="Center/Popup"]
@@ -291,3 +298,10 @@ auto_translate = false
 localize_numeral_system = false
 theme = ExtResource("5_wkgrd")
 text = "Debug:"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_i7ff0")
+autoplay = true
+bus = &"Music"
+
+[node name="UIPlayer" type="AudioStreamPlayer" parent="."]
