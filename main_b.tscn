@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c8ox33xsueinb"]
+[gd_scene load_steps=16 format=3 uid="uid://c8ox33xsueinb"]
 
 [ext_resource type="Script" path="res://main_b.gd" id="1_ehr3d"]
 [ext_resource type="Texture2D" uid="uid://cxjhmd6w4ia86" path="res://images/background.png" id="1_s1rdp"]
@@ -11,6 +11,14 @@
 [ext_resource type="Texture2D" uid="uid://l1a3njdutc3h" path="res://images/popup_background.png" id="9_i62dx"]
 [ext_resource type="Texture2D" uid="uid://dyp0aeym6sq40" path="res://images/LogoHoriontal.png" id="10_hq28h"]
 [ext_resource type="PackedScene" uid="uid://w2nkb2eujyt6" path="res://compicactus.tscn" id="11_fnf4y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08gm8"]
+atlas = ExtResource("6_f0w2s")
+region = Rect2(55, 1233, 135, 125)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bj2e1"]
+atlas = ExtResource("6_f0w2s")
+region = Rect2(1104, 1212, 142, 186)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_goume"]
 atlas = ExtResource("6_f0w2s")
@@ -36,12 +44,37 @@ script = ExtResource("1_ehr3d")
 [node name="Background" type="Sprite2D" parent="Center"]
 texture = ExtResource("1_s1rdp")
 
-[node name="HumanMetter" parent="Center" instance=ExtResource("3_goxrm")]
+[node name="MachineIcon" type="Sprite2D" parent="Center"]
 visible = false
-position = Vector2(-596, -934)
+position = Vector2(927, -512)
+texture = SubResource("AtlasTexture_08gm8")
+
+[node name="HumanIcon" type="Sprite2D" parent="Center"]
+visible = false
+position = Vector2(927, -512)
+texture = SubResource("AtlasTexture_bj2e1")
+
+[node name="HumanMetter" parent="Center" instance=ExtResource("3_goxrm")]
+position = Vector2(604, -943)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Center"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 102.0
+offset_top = -787.0
+offset_right = 1093.0
+offset_bottom = -634.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 50.0
+texture_under = SubResource("AtlasTexture_goume")
+texture_progress = SubResource("AtlasTexture_2qsix")
 
 [node name="TTS_toggle" parent="Center" instance=ExtResource("4_313ya")]
-position = Vector2(1304, -930)
+position = Vector2(480, 740)
 
 [node name="Control" type="Control" parent="Center"]
 clip_contents = true
@@ -85,22 +118,6 @@ grow_vertical = 2
 theme = ExtResource("5_wkgrd")
 text = "..."
 autowrap_mode = 3
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Center"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -509.0
-offset_top = -970.0
-offset_right = 482.0
-offset_bottom = -817.0
-grow_horizontal = 2
-grow_vertical = 2
-value = 50.0
-texture_under = SubResource("AtlasTexture_goume")
-texture_progress = SubResource("AtlasTexture_2qsix")
 
 [node name="Popup" type="Node2D" parent="Center"]
 visible = false
@@ -176,16 +193,37 @@ autowrap_mode = 3
 
 [node name="EndScreen" type="Node2D" parent="Center/Popup"]
 
+[node name="CompiResultBubble" type="Sprite2D" parent="Center/Popup/EndScreen"]
+position = Vector2(-414.5, -159.25)
+scale = Vector2(1, 1.5)
+texture = ExtResource("4_op237")
+
+[node name="ResultText" type="Label" parent="Center/Popup/EndScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -804.5
+offset_top = -465.25
+offset_right = -45.5
+offset_bottom = 123.75
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_wkgrd")
+text = "_end text"
+autowrap_mode = 3
+
 [node name="EndText" type="Label" parent="Center/Popup/EndScreen"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -714.5
-offset_top = -162.0
-offset_right = 714.5
-offset_bottom = 162.0
+offset_left = -1005.0
+offset_top = 304.0
+offset_right = 424.0
+offset_bottom = 628.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_wkgrd")
